@@ -1,3 +1,13 @@
+/**
+ * Off of ch3 of The Book
+ *
+ * It is required to write a script that prints out the
+ * verses of the song 12 Days of Christmas, using only the knowledge of
+ * scalar and compound data types, functions and control flow
+ *
+ * Here follows my solution
+ */
+
 const GIFTS: [&str; 12] = [
     "partridge in a pear tree",
     "turtle-doves",
