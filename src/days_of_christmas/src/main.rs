@@ -26,12 +26,13 @@ const GIFTS: [&str; 12] = [
 fn main() {
     let mut i = 1;
     while i <= 12 {
-        sing_intro(i);
+        sing_verse(i);
+
         i += 1;
     }
 }
 
-fn sing_intro(i: i32) {
+fn sing_intro(i: usize) {
     println!(
         "On the {}{} day of Christmas\nMy true love gave to me",
         i,
@@ -46,7 +47,6 @@ fn sing_intro(i: i32) {
         },
     );
     sing_gifts(i as usize);
-    println!("\n");
 }
 
 fn sing_gifts(i: usize) {
@@ -59,4 +59,10 @@ fn sing_gifts(i: usize) {
         }
         stop -= 1;
     }
+}
+
+fn sing_verse(verse_number: usize) {
+    sing_intro(verse_number);
+    sing_gifts(verse_number);
+    println!("------------------\n");
 }
