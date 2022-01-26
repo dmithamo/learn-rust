@@ -46,7 +46,6 @@ fn sing_intro(i: usize) {
             "th"
         },
     );
-    sing_gifts(i as usize);
 }
 
 fn sing_gifts(i: usize) {
