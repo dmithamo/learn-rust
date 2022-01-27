@@ -35,6 +35,14 @@ fn main() {
                 continue;
             }
         };
+
+        let guesses_left = allowable_guesses - number_of_guesses;
+        let guesses_left = format!(
+            "{} guess{} left",
+            guesses_left,
+            if guesses_left == 1 { "" } else { "es" },
+        );
+
         match guess.cmp(&correct_value) {
             Ordering::Equal => {
                 println!(
@@ -52,18 +60,10 @@ fn main() {
                 break;
             }
             Ordering::Greater => {
-                let guesses_left = allowable_guesses - number_of_guesses;
-                println!(
-                    "Too high! ({} guess{} left)",
-                    guesses_left,
-                    if guesses_left == 1 { "" } else { "es" },
-                )
+                println!("Too high! ({})", guesses_left,)
             }
             Ordering::Less => {
-                println!(
-                    "Too low! ({} guesses left)",
-                    allowable_guesses - number_of_guesses
-                )
+                println!("Too low! ({}", guesses_left)
             }
         }
 
