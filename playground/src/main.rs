@@ -7,9 +7,9 @@ fn main() {
     // }
     // }
     // eprintln!("{}", factorial(7));
-    for i in 1..=20 {
+    for i in 9_663_312_410_114_943_810..=9_663_312_410_114_943_815 {
         print!("collatz_sequence({i}) = ");
-        println!(" (len {})", collatz_sequence_len(i));
+        println!(" (len {})\n\n\n", collatz_sequence_len(i));
     }
 }
 
@@ -25,8 +25,8 @@ fn factorial(n: u32) -> u32 {
     product
 }
 
-fn collatz_sequence_len(mut n: u32) -> u32 {
-    let mut cycles: u32 = 0;
+fn collatz_sequence_len(mut n: u128) -> u128 {
+    let mut cycles: u128 = 0;
 
     while n > 1 {
         print!("{n}");
