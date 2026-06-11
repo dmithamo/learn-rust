@@ -37,8 +37,10 @@ fn main() {
 
 fn transpose(mut a: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
     for i in 0..3 {
-        for j in 0..3 {
+        for j in (i + 1)..3 {
+            let temp = a[i][j];
             a[i][j] = a[j][i];
+            a[j][i] = temp;
         }
     }
     a
