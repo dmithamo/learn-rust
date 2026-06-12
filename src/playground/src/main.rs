@@ -1,4 +1,6 @@
-#![allow(dead_code)]
+#![allow(dead_code, unused_imports)]
+
+use std::time::{Duration, Instant};
 
 use num::complex::Complex;
 
@@ -16,8 +18,24 @@ fn main() {
     // various_powers();
     // assert!(0.1 + 0.2 == 0.3);
     // println!("{}", ((0.1 + 0.2) - 0.3 as f32).abs() <= f32::EPSILON);
-    let n = Complex { re: 11, im: 3 };
-    println!("{:?}", n);
+    // let n = Complex { re: 11, im: 3 };
+    // println!("{:?}", n);
+
+    // let mut s = vec![];
+    // while s.len() < 10 {
+    //     s.push("Dennis");
+    // }
+    // println!("{s:?}")
+
+    let limit = Duration::new(1, 0);
+    let start = Instant::now();
+    let mut count = 0;
+
+    while Instant::now() - start < limit {
+        count += 1;
+    }
+
+    println!("{count} [in one sec!]")
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
