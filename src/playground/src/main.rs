@@ -6,10 +6,12 @@ fn main() {
     //         println!("gcd({}, {}) = {}", i, j, gcd(i, j));
     //     }
     // }
-    for i in 1..=20 {
-        print!("collatz_sequence({i}) = ");
-        println!(" (len {})", collatz_sequence(i));
-    }
+    // for i in 1..=20 {
+    //     print!("collatz_sequence({i}) = ");
+    //     println!(" (len {})", collatz_sequence(i));
+    // }
+    // number_bases();
+    various_powers();
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
@@ -34,4 +36,19 @@ fn collatz_sequence(mut n: u32) -> u32 {
 
 fn gcd(a: i32, b: i32) -> i32 {
     if b > 0 { gcd(b, a % b) } else { a }
+}
+
+fn number_bases() {
+    let two = 2;
+
+    println!(
+        "[base 2/binary]={0:b} [base 16/hexadecimal]={0:x} [base 8/octo]={0:o}",
+        two
+    );
+}
+
+fn various_powers() {
+    for i in 1..=64 {
+        println!("2^{i} = {}", 2_u128.pow(i));
+    }
 }
