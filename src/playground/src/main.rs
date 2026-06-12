@@ -1,5 +1,7 @@
 #![allow(dead_code)]
 
+use num::complex::Complex;
+
 fn main() {
     // for i in 3..100 {
     //     for j in 6..100 {
@@ -11,7 +13,11 @@ fn main() {
     //     println!(" (len {})", collatz_sequence(i));
     // }
     // number_bases();
-    various_powers();
+    // various_powers();
+    // assert!(0.1 + 0.2 == 0.3);
+    // println!("{}", ((0.1 + 0.2) - 0.3 as f32).abs() <= f32::EPSILON);
+    let n = Complex { re: 11, im: 3 };
+    println!("{:?}", n);
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
