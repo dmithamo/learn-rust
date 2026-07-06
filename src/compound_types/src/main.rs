@@ -18,30 +18,38 @@ fn main() {
     //     assert!(!t.0);
     // }
     //
-    let a = [
-        [101, 102, 103], // <-- the comment makes rustfmt add a newline
-        [201, 202, 203],
-        [301, 302, 303],
+    let a: Vec<Vec<i32>> = vec![
+        vec![101, 102, 103],
+        vec![201, 202, 203],
+        vec![301, 302, 303],
     ];
-
     println!("Original: ");
-    for row in a {
+    for row in &a {
         println!("{row:?}");
     }
 
     println!("Transponsed: ");
-    for row in transpose(a) {
+    for row in transpose(&a) {
         println!("{row:?}");
     }
 }
 
-fn transpose(mut a: [[i32; 3]; 3]) -> [[i32; 3]; 3] {
-    for i in 0..3 {
-        for j in (i + 1)..3 {
-            let temp = a[i][j];
-            a[i][j] = a[j][i];
-            a[j][i] = temp;
+fn transpose(matrix: &Vec<Vec<i32>>) -> Vec<Vec<i32>> {
+    if matrix.is_empty() {
+        return vec![];
+    }
+
+    let rows = matrix.len();
+    let cols = matrix[0].len();
+
+    // Create a new matrix with swapped dimensions (cols x rows)
+    let mut transposed = vec![vec![0; rows]; cols];
+
+    for i in 0..rows {
+        for j in 0..cols {
+            transposed[j][i] = matrix[i][j];
         }
     }
-    a
+
+    transposed
 }
