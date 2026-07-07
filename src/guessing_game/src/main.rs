@@ -9,7 +9,7 @@ use std::io;
  */
 
 fn main() {
-    let mut number_of_guesses: u32 = 0;
+    let mut number_of_guesses: u32 /*Type annotation needed */ = 0;
     let allowable_guesses = 10;
     let correct_value = rand::thread_rng().gen_range(1..=10);
 
