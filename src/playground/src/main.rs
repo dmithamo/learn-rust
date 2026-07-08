@@ -27,15 +27,23 @@ fn main() {
     // }
     // println!("{s:?}")
 
-    let limit = Duration::new(1, 0);
-    let start = Instant::now();
-    let mut count = 0;
+    // let limit = Duration::new(1, 0);
+    // let start = Instant::now();
+    // let mut count = 0;
+    //
+    // while Instant::now() - start < limit {
+    //     count += 1;
+    // }
+    //
+    // println!("{count} [in one sec!]")
+    let mut name = String::new();
 
-    while Instant::now() - start < limit {
-        count += 1;
+    for word in vec!["Dennis", "Bundi", "Mithamo"] {
+        name.push_str(word);
+        name.push_str(" ");
     }
-
-    println!("{count} [in one sec!]")
+    name = name.trim().to_string();
+    println!("Fullname: {name:?}")
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
