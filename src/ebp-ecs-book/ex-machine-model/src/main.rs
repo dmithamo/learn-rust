@@ -16,13 +16,15 @@ fn main() {
     }
 
     let print_width = 15;
+    println!("Duration table\n");
     println!(
-        "{:<print_width$}{:<print_width$}{:<print_width$}",
+        "{:<print_width$}{:>print_width$}{:>print_width$}",
         "Count", "Sequential", "Random",
     );
+    println!("{}", "_".repeat(print_width * 3));
     for d in durations {
         println!(
-            "{:<print_width$?}{:<print_width$?}{:<print_width$?}",
+            "{:<print_width$?}{:>print_width$?}{:>print_width$?}",
             d.0, d.1, d.2
         );
     }
