@@ -38,12 +38,19 @@ fn main() {
     // println!("{count} [in one sec!]")
     let mut name = String::new();
 
-    for word in vec!["Dennis", "Bundi", "Mithamo"] {
+    for word in vec![
+        "Dennis", "Bundi", "Mithamo", "Elyon", "Judah", "KhalegiB", "Lorraine",
+    ] {
         name.push_str(word);
         name.push_str(" ");
     }
     name = name.trim().to_string();
-    println!("Fullname: {name:?}")
+    println!("Fullname: {name:?}");
+
+    let b = name;
+    println!("{b}");
+
+    println!("{:?}...{}...{}", b.as_ptr(), b.capacity(), b.len());
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
