@@ -46,13 +46,8 @@ fn random_access_timing(count: usize) -> Duration {
     let a = vec![1 as u64; count];
     let mut _sum = 0u64;
 
-    let mut indices: Vec<usize> = vec![];
-    for i in 0..count {
-        indices.push(i as usize);
-    }
-
     let start = time::Instant::now();
-    for &j in &indices {
+    for j in 0..count {
         _sum += a[j];
     }
 
