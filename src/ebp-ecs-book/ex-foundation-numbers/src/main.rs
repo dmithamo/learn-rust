@@ -1,3 +1,4 @@
+#[allow(unused_imports)]
 use std::{hint::black_box, time};
 
 fn main() {
@@ -31,22 +32,29 @@ fn main() {
     //     std::mem::size_of::<usize>()
     // );
 
-    let count = 100_000_000;
-    let a: Vec<u8> = vec![1; count];
-    let b: Vec<u64> = vec![1; count];
+    // let b: Vec<u64> = vec![1; count];
+    //
+    // let sum_u8_time = {
+    //     let start = time::Instant::now();
+    //     black_box(a.iter().sum::<u8>());
+    //     start.elapsed()
+    // };
+    // let sum_u64_time = {
+    //     let start = time::Instant::now();
+    //     black_box(b.iter().sum::<u64>());
+    //     start.elapsed()
+    // };
+    // println!(
+    //     "Duration for:\n\tsum_u8: {sum_u8_time:?}\n\tsum_u64: {sum_u64_time:?}\n\nRatio: {:?}",
+    //     sum_u64_time.as_nanos() as f32 / sum_u8_time.as_nanos() as f32
+    // );
 
-    let sum_u8_time = {
-        let start = time::Instant::now();
-        black_box(a.iter().sum::<u8>());
-        start.elapsed()
-    };
-    let sum_u64_time = {
-        let start = time::Instant::now();
-        black_box(b.iter().sum::<u64>());
-        start.elapsed()
-    };
     println!(
-        "Duration for:\n\tsum_u8: {sum_u8_time:?}\n\tsum_u64: {sum_u64_time:?}\n\nRatio: {:?}",
-        sum_u64_time.as_nanos() as f32 / sum_u8_time.as_nanos() as f32
+        "0.0_f64 / 0.0_f64 =  {}\n1.0_f64 / 0.0_f64 = {}\n(0.0_f64).sqrt() = {}",
+        0.0_f64 / 0.0_f64,
+        1.0_f64 / 0.0_f64,
+        (0.0_f64).sqrt()
     );
+    let nan = 0.0_f64 / 0.0_f64;
+    assert!(nan != nan);
 }
