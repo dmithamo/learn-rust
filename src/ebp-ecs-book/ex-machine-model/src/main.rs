@@ -1,4 +1,5 @@
 use std::time::{self, Duration};
+use thousands::Separable;
 
 fn main() {
     let counts: Vec<usize> = vec![
@@ -15,8 +16,8 @@ fn main() {
         durations.push((c, sequential_access_time(c), random_access_timing(c)));
     }
 
-    let print_width = 15;
-    println!("Duration table\n");
+    let print_width = 20;
+    println!("Machine model exercise: Duration for array access");
     println!(
         "{:<print_width$}{:>print_width$}{:>print_width$}",
         "Count", "Sequential", "Random",
@@ -24,17 +25,19 @@ fn main() {
     println!("{}", "_".repeat(print_width * 3));
     for d in durations {
         println!(
-            "{:<print_width$?}{:>print_width$?}{:>print_width$?}",
-            d.0, d.1, d.2
+            "{:<print_width$}{:>print_width$?}{:>print_width$?}",
+            (d.0).separate_with_commas(),
+            d.1,
+            d.2
         );
     }
 }
 
 fn sequential_access_time(count: usize) -> Duration {
-    let a = vec![1 as i64; count];
+    let a = vec![1 as u64; count];
 
     let start = time::Instant::now();
-    let _ = a.iter().sum::<i64>();
+    let _ = a.iter().sum::<u64>();
 
     (time::Instant::now() - start) / count as u32
 }
