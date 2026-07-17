@@ -22,7 +22,7 @@ fn main() {
     println!("Machine model exercise: Duration for array access");
     println!(
         "{:<print_width$}{:>print_width$}{:>print_width$}",
-        "Count", "Sequential(ns)", "Random(ns)",
+        "Count", "Sequential(ns/elem)", "Random(ns/elem)",
     );
     println!("{}", "_".repeat(print_width * 3));
     for d in durations {
@@ -41,7 +41,7 @@ fn sequential_access_time(count: usize) -> f64 {
     let start = time::Instant::now();
     std::hint::black_box(a.iter().sum::<u64>());
 
-    (time::Instant::now() - start).as_nanos() as f64 / count as f64
+    start.elapsed().as_nanos() as f64 / count as f64
 }
 
 fn random_access_timing(count: usize) -> f64 {
@@ -58,5 +58,5 @@ fn random_access_timing(count: usize) -> f64 {
     }
 
     std::hint::black_box(_sum);
-    (time::Instant::now() - start).as_nanos() as f64 / count as f64
+    start.elapsed().as_nanos() as f64 / count as f64
 }
