@@ -58,9 +58,19 @@ fn main() {
     // let nan = 0.0_f64 / 0.0_f64;
     // assert!(nan != nan);
 
-    println!(
-        "1e10_f32 -(1e10_f32-1.0_f32) = {}\n1e10_f64 -(1e10_f64-1.0_f64) = {}",
-        1e10_f32 - (1e10_f32 - 1.0_f32),
-        1e10_f64 - (1e10_f64 - 1.0_f64)
-    )
+    // println!(
+    //     "1e10_f32 -(1e10_f32-1.0_f32) = {}\n1e10_f64 -(1e10_f64-1.0_f64) = {}",
+    //     1e10_f32 - (1e10_f32 - 1.0_f32),
+    //     1e10_f64 - (1e10_f64 - 1.0_f64)
+    // )
+    let mut v = Vec::with_capacity(100);
+    for i in 0..100 {
+        v.push(i);
+
+        if v.len().is_power_of_two() {
+            println!("len = {}; cap = {}", v.len(), v.capacity());
+        }
+    }
+
+    println!("len = {}; cap = {}", v.len(), v.capacity());
 }
