@@ -1,5 +1,13 @@
 fn main() {
-    print_deck(new_deck());
+    let deck = new_deck();
+    let mut indices: Vec<usize> = vec![];
+    for i in 0..52 {
+        indices.push(i);
+    }
+    print_deck(indices.clone(), deck.clone());
+
+    lcg_fisher_yates(&mut indices, 123456_u64);
+    print_deck(indices, deck);
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
@@ -20,16 +28,6 @@ fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
     (suits, ranks, locations)
 }
 
-fn print_deck(d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
-    for i in 0..52 {
-        print!("{:>4} ", card_to_string(d.0[i], d.1[i]));
-        if (i + 1) % 13 == 0 {
-            println!();
-        }
-    }
-    println!("");
-}
-
 fn card_to_string(suit: u8, rank: u8) -> String {
     let rank_str = match rank {
         0 => format!("A"),
@@ -46,4 +44,32 @@ fn card_to_string(suit: u8, rank: u8) -> String {
         3 => format!("{rank_str}♦"),
         _ => todo!(),
     }
+}
+
+// TODO: Endeavour to understand this Fisher_Yates and LCG stuff
+fn lcg_fisher_yates(v: &mut Vec<usize>, mut seed: u64) {
+    // Tiny one-liner LCG returning a pseudo-random usize
+    let mut lcg = || {
+        seed = seed.wrapping_mul(6364136223846793005).wrapping_add(1);
+        (seed >> 32) as usize
+    };
+
+    // Fisher-Yates shuffle algorithm
+    for i in (1..v.len()).rev() {
+        v.swap(i, lcg() % (i + 1));
+    }
+}
+
+fn print_deck(indices: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
+    println!("suits={:?}\nranks={:?}\nlocations={:?}\n\n", d.0, d.1, d.2);
+
+    let mut count = 0;
+    for i in indices {
+        count += 1;
+        print!("{:>4} ", card_to_string(d.0[i], d.1[i]));
+        if (count) % 13 == 0 {
+            println!();
+        }
+    }
+    println!("");
 }
