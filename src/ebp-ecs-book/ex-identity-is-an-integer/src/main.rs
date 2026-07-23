@@ -1,5 +1,5 @@
 fn main() {
-    let deck = new_deck();
+    let mut deck = new_deck();
     let mut order: Vec<usize> = vec![];
     for i in 0..52 {
         order.push(i);
@@ -7,7 +7,17 @@ fn main() {
     print_deck(order.clone(), deck.clone());
 
     lcg_fisher_yates(&mut order, 123456_u64);
-    print_deck(order, deck);
+    print_deck(order, deck.clone());
+
+    let player_count = 5;
+    let hand_size = 5;
+    let locations = deck.2.clone();
+
+    deal_hand(&mut deck.2, player_count, hand_size);
+    println!(
+        "locations before dealing={:?}\nlocations after dealing={:?}",
+        locations, deck.2,
+    );
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
@@ -59,7 +69,6 @@ fn lcg_fisher_yates(v: &mut Vec<usize>, mut seed: u64) {
         v.swap(i, lcg() % (i + 1));
     }
 }
-
 fn print_deck(order: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
     let mut count = 0;
     for i in order {
@@ -70,4 +79,13 @@ fn print_deck(order: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
         }
     }
     println!("");
+}
+
+fn deal_hand(locations: &mut Vec<u8>, player_count: u8, hand_size: u8) {
+    let total_cards_to_deal = hand_size * player_count;
+    let mut total_cards_dealt = 0;
+    while total_cards_dealt < total_cards_to_deal {
+        locations[total_cards_dealt as usize] = (total_cards_dealt / hand_size) as u8 + 1_u8;
+        total_cards_dealt += 1;
+    }
 }
