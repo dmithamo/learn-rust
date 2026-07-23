@@ -1,13 +1,13 @@
 fn main() {
     let deck = new_deck();
-    let mut indices: Vec<usize> = vec![];
+    let mut order: Vec<usize> = vec![];
     for i in 0..52 {
-        indices.push(i);
+        order.push(i);
     }
-    print_deck(indices.clone(), deck.clone());
+    print_deck(order.clone(), deck.clone());
 
-    lcg_fisher_yates(&mut indices, 123456_u64);
-    print_deck(indices, deck);
+    lcg_fisher_yates(&mut order, 123456_u64);
+    print_deck(order, deck);
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
@@ -31,10 +31,10 @@ fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
 fn card_to_string(suit: u8, rank: u8) -> String {
     let rank_str = match rank {
         0 => format!("A"),
+        num if num < 10 => format!("{}", num + 1),
         10 => format!("J"),
         11 => format!("K"),
         12 => format!("Q"),
-        num if num < 10 => format!("{}", num + 1),
         _ => todo!(),
     };
     match suit {
@@ -60,14 +60,12 @@ fn lcg_fisher_yates(v: &mut Vec<usize>, mut seed: u64) {
     }
 }
 
-fn print_deck(indices: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
-    println!("suits={:?}\nranks={:?}\nlocations={:?}\n\n", d.0, d.1, d.2);
-
+fn print_deck(order: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
     let mut count = 0;
-    for i in indices {
+    for i in order {
         count += 1;
         print!("{:>4} ", card_to_string(d.0[i], d.1[i]));
-        if (count) % 13 == 0 {
+        if (count) % 26 == 0 {
             println!();
         }
     }
