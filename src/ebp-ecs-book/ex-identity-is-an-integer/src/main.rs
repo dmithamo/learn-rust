@@ -4,10 +4,10 @@ fn main() {
     for i in 0..52 {
         order.push(i);
     }
-    print_deck(order.clone(), deck.clone());
+    print_cards(&order, &deck);
 
     lcg_fisher_yates(&mut order, 123456_u64);
-    print_deck(order, deck.clone());
+    print_cards(&order, &deck);
 
     let player_count = 5;
     let hand_size = 5;
@@ -18,6 +18,18 @@ fn main() {
         "locations before dealing={:?}\nlocations after dealing={:?}",
         locations, deck.2,
     );
+
+    println!("Player cards\n");
+    let mut current_player = 0;
+    while current_player < player_count {
+        print!("Player {} has cards= ", current_player + 1);
+        let mut indices = vec![];
+        for i in current_player * hand_size..(current_player * hand_size + hand_size) {
+            indices.push(order[i as usize]);
+        }
+        print_cards(&indices, &deck);
+        current_player += 1;
+    }
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
@@ -69,12 +81,12 @@ fn lcg_fisher_yates(v: &mut Vec<usize>, mut seed: u64) {
         v.swap(i, lcg() % (i + 1));
     }
 }
-fn print_deck(order: Vec<usize>, d: (Vec<u8>, Vec<u8>, Vec<u8>)) {
+fn print_cards(indices: &Vec<usize>, d: &(Vec<u8>, Vec<u8>, Vec<u8>)) {
     let mut count = 0;
-    for i in order {
+    for i in indices {
         count += 1;
-        print!("{:>4} ", card_to_string(d.0[i], d.1[i]));
-        if (count) % 26 == 0 {
+        print!("{:>4} ", card_to_string(d.0[*i], d.1[*i]));
+        if (count) % 5 == 0 {
             println!();
         }
     }
