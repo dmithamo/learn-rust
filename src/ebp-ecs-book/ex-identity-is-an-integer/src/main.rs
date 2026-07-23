@@ -1,4 +1,7 @@
+use std::time;
+
 fn main() {
+    let start = time::Instant::now();
     let mut deck = new_deck();
     let mut order: Vec<usize> = vec![];
     for i in 0..52 {
@@ -30,12 +33,14 @@ fn main() {
         print_cards(&indices, &deck);
         current_player += 1;
     }
+
+    println!("\n[TIME TAKEN= {:?}]", start.elapsed());
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
-    let mut suits: Vec<u8> = vec![];
-    let mut ranks: Vec<u8> = vec![];
-    let mut locations: Vec<u8> = vec![];
+    let mut suits = Vec::with_capacity(52);
+    let mut ranks = Vec::with_capacity(52);
+    let mut locations = Vec::with_capacity(52);
 
     for i in 0..52 {
         let card_suit: u8 = i % 4;
