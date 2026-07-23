@@ -1,7 +1,9 @@
-use std::time;
+const SUIT_CHARS: [&str; 4] = ["♠", "♥", "♦", "♣"];
+const RANK_CHARS: [&str; 13] = [
+    "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K",
+];
 
 fn main() {
-    let start = time::Instant::now();
     let mut deck = new_deck();
     let mut order: Vec<usize> = vec![];
     for i in 0..52 {
@@ -14,15 +16,9 @@ fn main() {
 
     let player_count = 5;
     let hand_size = 5;
-    let locations = deck.2.clone();
-
     deal_hand(&mut deck.2, player_count, hand_size);
-    println!(
-        "locations before dealing={:?}\nlocations after dealing={:?}",
-        locations, deck.2,
-    );
 
-    println!("Player cards\n");
+    println!("Player cards");
     let mut current_player = 0;
     while current_player < player_count {
         print!("Player {} has cards= ", current_player + 1);
@@ -33,8 +29,6 @@ fn main() {
         print_cards(&indices, &deck);
         current_player += 1;
     }
-
-    println!("\n[TIME TAKEN= {:?}]", start.elapsed());
 }
 
 fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
@@ -54,21 +48,7 @@ fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
 }
 
 fn card_to_string(suit: u8, rank: u8) -> String {
-    let rank_str = match rank {
-        0 => format!("A"),
-        num if num < 10 => format!("{}", num + 1),
-        10 => format!("J"),
-        11 => format!("K"),
-        12 => format!("Q"),
-        _ => todo!(),
-    };
-    match suit {
-        0 => format!("{rank_str}♠"),
-        1 => format!("{rank_str}❤"),
-        2 => format!("{rank_str}♣"),
-        3 => format!("{rank_str}♦"),
-        _ => todo!(),
-    }
+    format!("{}{}", RANK_CHARS[rank as usize], SUIT_CHARS[suit as usize])
 }
 
 // TODO: Endeavour to understand this Fisher_Yates and LCG stuff
@@ -89,7 +69,7 @@ fn print_cards(indices: &Vec<usize>, d: &(Vec<u8>, Vec<u8>, Vec<u8>)) {
     for i in indices {
         count += 1;
         print!("{:>4} ", card_to_string(d.0[*i], d.1[*i]));
-        if (count) % 5 == 0 {
+        if (count) % 26 == 0 {
             println!();
         }
     }
