@@ -42,14 +42,12 @@ fn new_deck() -> (Vec<u8>, Vec<u8>, Vec<u8>) {
     let mut ranks = Vec::with_capacity(52);
     let mut locations = Vec::with_capacity(52);
 
-    for i in 0..52 {
-        let card_suit: u8 = i % 4;
-        suits.push(card_suit);
-
-        let card_rank: u8 = i % 13;
-        ranks.push(card_rank);
-
-        locations.push(0);
+    for s in 0..4 {
+        for r in 0..13 {
+            suits.push(s);
+            ranks.push(r);
+            locations.push(0);
+        }
     }
 
     (suits, ranks, locations)
