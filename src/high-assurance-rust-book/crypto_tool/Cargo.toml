@@ -1,0 +1,2 @@
+[workspace]
+members = ["rc4", "rcli"]
