@@ -10,7 +10,7 @@ pub struct Rc4 {
 
 impl Rc4 {
     pub fn new(key: &[u8]) -> Self {
-        assert!(5 <= key.len() && key.len() >= 40);
+        assert!(5 <= key.len() && key.len() <= 40);
         let mut rc4 = Rc4 {
             s: [0; 256],
             i: 0,
@@ -42,6 +42,11 @@ impl Rc4 {
             *v_ptr ^= self.prga_next();
         }
     }
+
+    pub fn apply_keystream_static(key: &[u8], data: &mut [u8]) {
+        let mut rc4 = Rc4::new(key);
+        rc4.apply_keystream(data);
+    }
 }
 
 pub fn add(left: u64, right: u64) -> u64 {
@@ -51,6 +56,37 @@ pub fn add(left: u64, right: u64) -> u64 {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn sanity_check_static_encr() {
+        #[rustfmt::skip]
+        let key: [u8; 16] = [
+            0x4b, 0x8e, 0x29, 0x87, 0x80, 0x95, 0x96, 0xa3,
+            0xbb, 0x23, 0x82, 0x49, 0x9f, 0x1c, 0xe7, 0xc2,
+        ];
+
+        #[rustfmt::skip]
+        let plaintext = [
+            0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f,
+            0x72, 0x6c, 0x64, 0x21,
+        ];
+
+        let mut msg: [u8; 12] = plaintext.clone();
+        println!("Plaintext: `{}`", String::from_utf8(msg.to_vec()).unwrap());
+
+        // enc:
+        Rc4::apply_keystream_static(&key, &mut msg);
+        assert_ne!(msg, plaintext);
+        println!("Ciphertext: `{:?}`", msg);
+
+        // dec
+        Rc4::apply_keystream_static(&key, &mut msg);
+        assert_eq!(msg, plaintext);
+        println!(
+            "Decrupted plaintext: `{}`",
+            String::from_utf8(msg.to_vec()).unwrap()
+        );
+    }
 
     #[test]
     fn it_works() {
