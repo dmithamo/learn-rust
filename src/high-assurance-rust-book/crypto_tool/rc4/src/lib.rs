@@ -58,6 +58,40 @@ mod tests {
     use super::*;
 
     #[test]
+    fn sanity_check_dynamic() {
+        #[rustfmt::skip]
+        let key: [u8; 16] = [
+            0x4b, 0x8e, 0x29, 0x87, 0x80, 0x95, 0x96, 0xa3,
+            0xbb, 0x23, 0x82, 0x49, 0x9f, 0x1c, 0xe7, 0xc2,
+        ];
+
+        #[rustfmt::skip]
+        let plaintext = [
+            0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f,
+            0x72, 0x6c, 0x64, 0x21,
+        ];
+
+        let mut rc4 = Rc4::new(&key);
+
+        let mut msg: [u8; 12] = plaintext.clone();
+
+        // enc
+        rc4.apply_keystream(&mut msg);
+        assert_ne!(msg, plaintext);
+        println!(
+            "Plaintext: {}\nCiphertext: {:?}\n",
+            String::from_utf8(plaintext.to_vec()).unwrap(),
+            msg
+        );
+
+        // dec
+        rc4 = Rc4::new(&key);
+        rc4.apply_keystream(&mut msg);
+        assert_eq!(msg, plaintext);
+        println!("Decrypted: {}", String::from_utf8(msg.to_vec()).unwrap());
+    }
+
+    #[test]
     fn sanity_check_static_encr() {
         #[rustfmt::skip]
         let key: [u8; 16] = [
@@ -82,10 +116,7 @@ mod tests {
         // dec
         Rc4::apply_keystream_static(&key, &mut msg);
         assert_eq!(msg, plaintext);
-        println!(
-            "Decrupted plaintext: `{}`",
-            String::from_utf8(msg.to_vec()).unwrap()
-        );
+        println!("Decrypted: `{}`", String::from_utf8(msg.to_vec()).unwrap());
     }
 
     #[test]
