@@ -29,6 +29,19 @@ impl Rc4 {
 
         rc4
     }
+
+    pub fn prga_next(&mut self) -> u8 {
+        self.i = self.i.wrapping_add(1);
+        self.j = self.j.wrapping_add(self.s[self.i as usize]);
+        self.s.swap(self.i as usize, self.j as usize);
+        self.s[(self.s[self.i as usize].wrapping_add(self.s[self.j as usize])) as usize]
+    }
+
+    pub fn apply_keystream(self: &mut Self, data: &mut [u8]) {
+        for v_ptr in data {
+            *v_ptr ^= self.prga_next();
+        }
+    }
 }
 
 pub fn add(left: u64, right: u64) -> u64 {
