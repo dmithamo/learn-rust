@@ -49,10 +49,6 @@ impl Rc4 {
     }
 }
 
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -117,11 +113,5 @@ mod tests {
         Rc4::apply_keystream_static(&key, &mut msg);
         assert_eq!(msg, plaintext);
         println!("Decrypted: `{}`", String::from_utf8(msg.to_vec()).unwrap());
-    }
-
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
     }
 }
