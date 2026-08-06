@@ -1,4 +1,4 @@
-#![allow(dead_code, unused_imports)]
+#![allow(dead_code, unused_imports, unused_variables)]
 
 use std::time::{Duration, Instant};
 
@@ -38,11 +38,11 @@ fn main() {
     // println!("{count} [in one sec!]")
     let mut name = String::new();
 
-    for word in vec![
+    for word in [
         "Dennis", "Bundi", "Mithamo", "Elyon", "Judah", "KhalegiB", "Lorraine",
     ] {
         name.push_str(word);
-        name.push_str(" ");
+        name.push(' ');
     }
     name = name.trim().to_string();
     println!("Fullname: {name:?}");
@@ -51,6 +51,11 @@ fn main() {
     println!("{b}");
 
     println!("{:?}...{}...{}", b.as_ptr(), b.capacity(), b.len());
+
+    const A: u8 = 252;
+    const B: u8 = 4;
+
+    assert_eq!(A + B, 3);
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
