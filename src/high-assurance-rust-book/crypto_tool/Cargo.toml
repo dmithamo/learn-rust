@@ -1,3 +1,0 @@
-[workspace]
-members = ["rc4", "rcli"]
-resolver = "3"

@@ -6,3 +6,6 @@ edition = "2024"
 [dependencies]
 clap = { version = "^4", features = ["derive"] }
 rc4 = { path = "../rc4" }
+
+[profile.release]
+strip = true
