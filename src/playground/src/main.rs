@@ -5,11 +5,11 @@ use std::time::{Duration, Instant};
 use num::complex::Complex;
 
 fn main() {
-    // for i in 3..100 {
-    //     for j in 6..100 {
-    //         println!("gcd({}, {}) = {}", i, j, gcd(i, j));
-    //     }
-    // }
+    for i in 3..100 {
+        for j in 6..100 {
+            println!("gcd({}, {}) = {}", i, j, gcd(i, j));
+        }
+    }
     // for i in 1..=20 {
     //     print!("collatz_sequence({i}) = ");
     //     println!(" (len {})", collatz_sequence(i));
@@ -36,26 +36,26 @@ fn main() {
     // }
     //
     // println!("{count} [in one sec!]")
-    let mut name = String::new();
-
-    for word in [
-        "Dennis", "Bundi", "Mithamo", "Elyon", "Judah", "KhalegiB", "Lorraine",
-    ] {
-        name.push_str(word);
-        name.push(' ');
-    }
-    name = name.trim().to_string();
-    println!("Fullname: {name:?}");
-
-    let b = name;
-    println!("{b}");
-
-    println!("{:?}...{}...{}", b.as_ptr(), b.capacity(), b.len());
-
-    const A: u8 = 252;
-    const B: u8 = 4;
-
-    assert_eq!(A + B, 3);
+    // let mut name = String::new();
+    //
+    // for word in [
+    //     "Dennis", "Bundi", "Mithamo", "Elyon", "Judah", "KhalegiB", "Lorraine",
+    // ] {
+    //     name.push_str(word);
+    //     name.push(' ');
+    // }
+    // name = name.trim().to_string();
+    // println!("Fullname: {name:?}");
+    //
+    // let b = name;
+    // println!("{b}");
+    //
+    // println!("{:?}...{}...{}", b.as_ptr(), b.capacity(), b.len());
+    //
+    // const A: u8 = 252;
+    // const B: u8 = 4;
+    //
+    // assert_eq!(A + B, 3);
 }
 
 fn collatz_sequence(mut n: u32) -> u32 {
@@ -78,8 +78,15 @@ fn collatz_sequence(mut n: u32) -> u32 {
     len
 }
 
-fn gcd(a: i32, b: i32) -> i32 {
-    if b > 0 { gcd(b, a % b) } else { a }
+fn gcd(mut a: i32, mut b: i32) -> i32 {
+    // if b > 0 { gcd(b, a % b) } else { a }
+    while a != 0 {
+        if a < b {
+            std::mem::swap(&mut a, &mut b);
+        }
+        a %= b;
+    }
+    b
 }
 
 fn number_bases() {
