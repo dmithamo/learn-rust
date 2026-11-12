@@ -1,15 +1,20 @@
 #![allow(dead_code, unused_imports, unused_variables)]
-
+use num::complex::Complex;
+use std::str::FromStr;
 use std::time::{Duration, Instant};
 
-use num::complex::Complex;
-
 fn main() {
-    for i in 3..100 {
-        for j in 6..100 {
-            println!("gcd({}, {}) = {}", i, j, gcd(i, j));
-        }
-    }
+    let d = "ಠ_ಠ";
+    let sd = &d[0..3];
+    println!("{sd:?}");
+    // for arg in std::env::args().skip(1) {
+    //     eprintln!("{}", u8::from_str(&arg).expect("Invalid number"));
+    // }
+    // for i in 3..100 {
+    //     for j in 6..100 {
+    //         println!("gcd({}, {}) = {}", i, j, gcd(i, j));
+    //     }
+    // }
     // for i in 1..=20 {
     //     print!("collatz_sequence({i}) = ");
     //     println!(" (len {})", collatz_sequence(i));
