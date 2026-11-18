@@ -46,7 +46,7 @@ fn strings_are_mutable() {
 type NicknameTable = HashMap<String, Vec<String>>;
 #[allow(dead_code)]
 fn pass_by_ref_sort(n: &mut NicknameTable) {
-    for (_realname, nnames) in n {
+    for nnames in n.values_mut() {
         nnames.sort();
     }
 }
