@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 
+type NicknameTable = HashMap<String, Vec<String>>;
 fn main() {
     // strings_are_mutable();
     let mut nnames_table = NicknameTable::new();
@@ -43,10 +44,9 @@ fn strings_are_mutable() {
     println!("{names:?}");
 }
 
-type NicknameTable = HashMap<String, Vec<String>>;
 #[allow(dead_code)]
 fn pass_by_ref_sort(n: &mut NicknameTable) {
-    for nnames in n.values_mut() {
+    for (_names, nnames) in n {
         nnames.sort();
     }
 }
